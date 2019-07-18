@@ -26,5 +26,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('signup/', dashboard_views.signup, name='signup'),
+    path('delete/<int:article_id>', dashboard_views.delete_article, name='delete'),
+    path('undelete/<int:article_id>', dashboard_views.undelete_article, name='undelete'),
+    path('read/<int:article_id>', dashboard_views.read_article, name='read'),
+    path('deleted_articles/', dashboard_views.deleted_articles_view, name='deleted_articles'),
     path('', dashboard_views.index_view, name='home' ),
 ]

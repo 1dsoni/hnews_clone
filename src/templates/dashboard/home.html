@@ -1,31 +1,33 @@
 <!DOCTYPE html>
-
 {% extends 'hnews_clone/basic_page.html'%}
 {% load static %}
-
-{% block basic_head_block %}
-{% endblock %}
-
 {% block basic_body_block %}
-<div class="container">
-
-</div>
-<div class="container">
+<div class="container align-center">
+  <p class="lead">Goto <a href="{% url 'deleted_articles' %}">deleted arcticles</a>. </p>
   {% if has_data %}
     {% for article in news_articles %}
-    <table class="m-2 p-1">
-    <tr>
-      <td>{{forloop.counter}}.</td>
-      <td> <a class="p-1" target="_blank" href="{{article.hackernews_url}}">{{article.title}}</a></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td>{{article.posted_age}}. Upvoted {{article.upvotes}} times. {{article.comments}} comments</td>
-    </tr>
-  </table>
+        <table class="m-2 p-1">
+          <tr>
+            <td>{{forloop.counter}}.</td>
+            {% if article.id in read_article_ids %}
+              <td> <a class="p-1 btn-secondary" target="_blank" href="{{article.hackernews_url}}">{{article.title}}</a><a href="{% url 'delete' article.id  %}"> <img class="p-1" src="{%static "media/cross.png"%}" alt="" width="25" height="25"> </a> </td>
+            {%else%}
+              <td> <a class="p-1" target="_blank" href="{{article.hackernews_url}}">{{article.title}}</a><a href="{% url 'delete' article.id  %}"> <img class="p-1" src="{%static "media/cross.png"%}" alt="" width="25" height="25"> </a> </td>
+            {% endif %}
+          </tr>
+          <tr>
+            <td></td>
+            {% if article.id in read_article_ids %}
+              <td>{{article.posted_age}}. Upvoted {{article.upvotes}} times. {{article.comments}} comments.</td>
+            {%else%}
+              <td>{{article.posted_age}}. Upvoted {{article.upvotes}} times. {{article.comments}} comments. <a href="{% url 'read' article.id  %}">mark as read</a></td>
+            {% endif %}
+          </tr>
+      </table>
+    {% empty %}
+        <li>Sorry, no articles right now!</li>
     {% endfor %}
   {% endif %}
-
 </div>
 
 {% endblock %}

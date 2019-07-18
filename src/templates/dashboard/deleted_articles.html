@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% extends 'hnews_clone/basic_page.html'%}
+{% load static %}
+{% block basic_body_block %}
+<div class="container align-center">
+  <p class="lead">Goto <a href="{% url 'home' %}">Home</a>. </p>
+  {% if has_data %}
+  <div class="jumbotron">
+    <p class="lead"> Click on the icon next to heading to restore article.</p>
+  </div>
+    {% for article in news_articles %}
+        <table class="m-2 p-1">
+          <tr>
+              <td>{{forloop.counter}}.</td>
+              <td> <a class="p-1" target="_blank" href="{{article.hackernews_url}}">{{article.title}}</a><a href="{% url 'undelete' article.id  %}"> <img class="p-1" src="{%static "media/undelete.png"%}" alt="" width="30" height="30"> </a> </td>
+          </tr>
+          <tr>
+              <td></td>
+              <td>{{article.posted_age}}. Upvoted {{article.upvotes}} times. {{article.comments}} comments.</td>
+          </tr>
+      </table>
+    {% empty %}
+        <li>No deleted articles here !</li>
+    {% endfor %}
+  {% endif %}
+</div>
+
+{% endblock %}
