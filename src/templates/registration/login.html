@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+{% extends 'hnews_clone/basic_page.html'%}
+{% load static %}
+{% block basic_head_block %}
+    <!-- Bootstrap core CSS -->
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/custom/signin.css" %}" rel="stylesheet">
+{% endblock %}
+{% block basic_body_block %}
+  <form class="form-signin" method="post">
+    {% csrf_token %}
+    <img class="mb-4" src="https://news.ycombinator.com/favicon.ico" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Please log in</h1>
+    {{ form.as_p }}
+    <button class="btn btn-primary btn-block" type="submit">Login</button>
+  </form>
+  <p class="form-signin mt-3 mb-1 text-muted">New? <a href="{% url "signup"%}">Sign up</a> ASAP!</p>
+{% endblock %}

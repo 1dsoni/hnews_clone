@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+{% extends 'hnews_clone/basic_page.html'%}
+{% load static %}
+
+{% block basic_head_block %}
+{% endblock %}
+
+{% block basic_body_block %}
+<div class="container">
+
+</div>
+<div class="container">
+  {% if has_data %}
+    {% for article in news_articles %}
+    <table class="m-2 p-1">
+    <tr>
+      <td>{{forloop.counter}}.</td>
+      <td> <a class="p-1" target="_blank" href="{{article.hackernews_url}}">{{article.title}}</a></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>{{article.posted_age}}. Upvoted {{article.upvotes}} times. {{article.comments}} comments</td>
+    </tr>
+  </table>
+    {% endfor %}
+  {% endif %}
+
+</div>
+
+{% endblock %}

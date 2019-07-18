@@ -14,8 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+import django.contrib.auth.urls
+from dashboard import views as dashboard_views
+from django.contrib.auth import views as auth_views
+from django.views.generic.edit import CreateView
+
+from django.contrib.auth.forms import UserCreationForm
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('signup/', dashboard_views.signup, name='signup'),
+    path('', dashboard_views.index_view, name='home' ),
 ]
